@@ -4,6 +4,7 @@ import Footer from "../component/Footer/Footer";
 import Cart from "../component/Cart/Cart";
 import useSWR from "swr";
 import Image from "next/image";
+import styled from "styled-components";
 
 export default function HomePage() {
   const { data, error, isLoading } = useSWR(
@@ -21,17 +22,28 @@ export default function HomePage() {
   console.log(data[random].imageSource);
   console.log(typeof data[random].imageSource);
 
+  const imageRatio =
+    data[random].dimensions.height / data[random].dimensions.width;
+
+  const imageSize = 450;
+
+  console.log("ImageRatio: ", imageRatio);
+
+  const DisplayImage = styled.img`
+    ${data[random].dimensions.height > data[random].dimensions.width
+      ? "width: " + 450 + "px;" + "height:" + 450 * imageRatio + "px"
+      : "height:" + 450 + "px;" + "height:" + 450 / imageRatio + "px"};
+  `;
+
   return (
     <Container>
       <h1>ART GALLERY</h1>
       <Cart>
-        <Image
-          src="https://example-apis.vercel.app/assets/art/body-of-water.jpg"
-          width={450}
-          height={300}
+        <h3>{data[random].artist}</h3>
+        <DisplayImage
+          src={data[random].imageSource}
           alt="Picture of the author"
         />
-        <h2>{data[random].artist}</h2>
       </Cart>
       <Footer>
         <NavBar isSilver href="./">
