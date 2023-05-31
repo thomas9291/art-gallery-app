@@ -5,4 +5,7 @@
   align-items: center;
   border: 1px solid black;
   border-radius: 1rem;
+
+  width: 90vw;
+  background-color: antiquewhite;
 }
