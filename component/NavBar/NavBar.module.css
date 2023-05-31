@@ -1,0 +1,11 @@
+.linkContainer {
+  margin: 1rem;
+  /* padding: 1rem; */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.link {
+  padding: 1rem;
+  margin: 0;
+  border-radius: 1rem;
+}
