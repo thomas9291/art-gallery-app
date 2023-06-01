@@ -13,9 +13,9 @@ export default function App({ Component, pageProps }) {
 
   const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState(
     "art-pieces-info",
-    { defaultValue: [] }
+    { defaultValue: data }
   );
-  updateArtPiecesInfo(data);
+  // updateArtPiecesInfo(data);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;

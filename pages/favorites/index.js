@@ -18,7 +18,6 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
 export default function artPiece({ onToggle, artPiecesInfo }) {
-  console.log(artPiecesInfo);
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -41,6 +40,11 @@ export default function artPiece({ onToggle, artPiecesInfo }) {
           className="mySwiper"
         >
           {artPiecesInfo.map((element, index) => {
+            console.log(element.artist);
+            const rightArtist =
+              element.artist === "Francesco Ungaro"
+                ? console.log("right")
+                : false;
             return (
               <SwiperSlide key={index}>
                 <Link href={`/artPiece/${element.slug}`}>
