@@ -2,24 +2,13 @@ import NavBar from "../component/NavBar/NavBar";
 import Container from "../component/Container/Container";
 import Footer from "../component/Footer/Footer";
 import Cart from "../component/Cart/Cart";
-import useSWR from "swr";
+
 import Image from "next/image";
 import React from "react";
 
 import classes from "./index.module.css";
-import useLocalStorageState from "use-local-storage-state";
 
-export default function HomePage() {
-  const { data, error, isLoading } = useSWR(
-    "https://example-apis.vercel.app/api/art"
-  );
-  // const [entries, setEntries] = useLocalStorageState("art gallery", {
-  //   defaultValue: data,
-  // });
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
+export default function HomePage({ data }) {
   const random = Math.floor(Math.random() * 10 + 0);
 
   return (
