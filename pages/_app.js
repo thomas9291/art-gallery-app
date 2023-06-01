@@ -27,6 +27,9 @@ export default function App({ Component, pageProps }) {
       }
     });
   };
+  const filteredFavorite = artPiecesInfo.filter(
+    (element) => element.isFavorite === true
+  );
   /* const commentHandler = (formData) => {
     updateArtPiecesInfo(
       artPiecesInfo.map((element) => {
@@ -41,6 +44,7 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher /* , refreshInterval: 1000  */ }}>
         <Component
           /* onForm={commentHandler} */
+          filteredFavorite={filteredFavorite}
           data={data}
           mutate={mutate}
           onToggle={favoriteHandler}

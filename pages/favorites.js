@@ -1,14 +1,11 @@
 import React from "react";
-import Cart from "../../component/Cart/Cart";
-
+import Container from "../component/Container/Container";
+import Footer from "../component/Footer/Footer";
+import NavBar from "../component/NavBar/NavBar";
+import Cart from "../component/Cart/Cart";
 import Image from "next/image";
-import Container from "../../component/Container/Container";
-import NavBar from "../../component/NavBar/NavBar";
-import Footer from "../../component/Footer/Footer";
 import Link from "next/link";
 
-/* import React, { useRef, useState } from "react"; */
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -17,13 +14,13 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
-export default function artPiece({
-  onToggle,
-  artPiecesInfo,
+export default function favorites({
   data,
   updateArtPiecesInfo,
+  filteredFavorite,
 }) {
   updateArtPiecesInfo(data);
+
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -45,7 +42,7 @@ export default function artPiece({
           modules={[EffectCoverflow, Pagination]}
           className="mySwiper"
         >
-          {artPiecesInfo.map((element, index) => {
+          {filteredFavorite.map((element, index) => {
             return (
               <SwiperSlide key={index}>
                 <Link href={`/artPiece/${element.slug}`}>
@@ -94,10 +91,10 @@ export default function artPiece({
       );
       <Footer>
         <NavBar href="/">Spotligth</NavBar>
-        <NavBar isSilver href="/artPiece">
-          Art piece
+        <NavBar href="/artPiece">Art piece</NavBar>
+        <NavBar isSilver href="/favorites">
+          Favorite
         </NavBar>
-        <NavBar href="/favorites">Favorite</NavBar>
       </Footer>
     </Container>
   );
