@@ -21,6 +21,7 @@ body {
 }
 .swiper {
   width: 100%;
+  heigth: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
 }
@@ -28,8 +29,8 @@ body {
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 300px;
-  height: 300px;
+  width: 40vw;
+  height: 40vw;
 }
 
 .swiper-slide img {
