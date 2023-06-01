@@ -5,6 +5,7 @@ export default createGlobalStyle`
 *::before,
 *::after {
   box-sizing: border-box;
+  text-decoration:none;
 }
 
 
@@ -49,5 +50,49 @@ body {
   margin: -6px;
   padding: 6px;
 }
-
+.cartContainer {
+  width: 90%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 1rem;
+  background-color: black;
+  width: 90vw;
+}
+.footerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: grey;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+.image {
+  object-fit: contain;
+}
+.linkContainer {
+  margin: 1rem;
+  /* padding: 1rem; */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.link {
+  padding: 1rem;
+  margin: 0;
+  border-radius: 1rem;
+}
 `;

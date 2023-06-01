@@ -6,8 +6,6 @@ import Cart from "../component/Cart/Cart";
 import Image from "next/image";
 import React from "react";
 
-import classes from "./index.module.css";
-
 export default function HomePage({ data }) {
   const random = Math.floor(Math.random() * 10 + 0);
 
@@ -18,7 +16,7 @@ export default function HomePage({ data }) {
         <h2>Artist name: {data[random].artist}</h2>
         <h3>Picture name: {data[random].name}</h3>
         <Image
-          className={classes.image}
+          className="image"
           src={data[random].imageSource}
           alt="pictur autor"
           width={550}
