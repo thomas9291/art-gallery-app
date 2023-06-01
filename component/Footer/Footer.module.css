@@ -6,6 +6,5 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  z-index: 1;
 }

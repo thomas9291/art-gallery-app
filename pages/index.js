@@ -38,7 +38,7 @@ export default function HomePage({ data }) {
         <NavBar isSilver href="./">
           Spotligth
         </NavBar>
-        <NavBar href="./">Art piece</NavBar>
+        <NavBar href="/artPiece">Art piece</NavBar>
         <NavBar href="./">Favorite</NavBar>
       </Footer>
     </Container>
