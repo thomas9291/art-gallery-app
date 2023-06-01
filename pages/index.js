@@ -28,7 +28,7 @@ export default function HomePage({ artPiecesInfo }) {
           Spotligth
         </NavBar>
         <NavBar href="./artPiece">Art piece</NavBar>
-        <NavBar href="./">Favorite</NavBar>
+        <NavBar href="./favorites">Favorite</NavBar>
       </Footer>
     </Container>
   );

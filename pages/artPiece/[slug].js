@@ -74,10 +74,10 @@ export default function DetailPage({ artPiecesInfo, onToggle, onForm }) {
       </Cart>
       <Footer>
         <NavBar href="/">Spotligth</NavBar>
-        <NavBar isSilver href="*">
+        <NavBar isSilver href="/artPiece">
           Art piece
         </NavBar>
-        <NavBar href="">Favorite</NavBar>
+        <NavBar href="/favorites">Favorite</NavBar>
       </Footer>
     </Container>
   );

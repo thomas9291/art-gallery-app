@@ -18,6 +18,12 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
 export default function artPiece({ onToggle, artPiecesInfo }) {
+  const favoriteArt = artPiecesInfo
+    .filter((item) => item.isFavorite)
+    .map((item) => item);
+
+  console.log("favoriteArt: " + favoriteArt);
+
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -39,12 +45,7 @@ export default function artPiece({ onToggle, artPiecesInfo }) {
           modules={[EffectCoverflow, Pagination]}
           className="mySwiper"
         >
-          {artPiecesInfo.map((element, index) => {
-            console.log(element.artist);
-            const rightArtist =
-              element.artist === "Francesco Ungaro"
-                ? console.log("right")
-                : false;
+          {favoriteArt.map((element, index) => {
             return (
               <SwiperSlide key={index}>
                 <Link href={`/artPiece/${element.slug}`}>
@@ -93,10 +94,10 @@ export default function artPiece({ onToggle, artPiecesInfo }) {
       );
       <Footer>
         <NavBar href="/">Spotligth</NavBar>
-        <NavBar isSilver href="/artPiece">
-          Art piece
+        <NavBar href="/artPiece">Art piece</NavBar>
+        <NavBar isSilver href="./">
+          Favorite
         </NavBar>
-        <NavBar href="./">Favorite</NavBar>
       </Footer>
     </Container>
   );

@@ -92,7 +92,7 @@ export default function artPiece({ onToggle, artPiecesInfo }) {
         <NavBar isSilver href="/artPiece">
           Art piece
         </NavBar>
-        <NavBar href="./">Favorite</NavBar>
+        <NavBar href="./favorites">Favorite</NavBar>
       </Footer>
     </Container>
   );
