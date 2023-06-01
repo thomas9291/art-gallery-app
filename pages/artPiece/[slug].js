@@ -10,9 +10,11 @@ import Cart from "../../component/Cart/Cart";
 export default function DetailPage({
   artPiecesInfo,
   onToggle,
-  updateArtPiecesInfo,
   data,
+  updateArtPiecesInfo,
 }) {
+  updateArtPiecesInfo(data);
+
   /*  updateArtPiecesInfo(data); */
   const router = useRouter();
   const { slug } = router.query;
@@ -24,7 +26,7 @@ export default function DetailPage({
     event.preventDefault();
     onForm(searchTerm);
   }; */
-
+  console.log(artPieceIndex);
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -80,10 +82,10 @@ export default function DetailPage({
       </Cart>
       <Footer>
         <NavBar href="/">Spotligth</NavBar>
-        <NavBar isSilver href="*">
+        <NavBar isSilver href="/artPiece">
           Art piece
         </NavBar>
-        <NavBar href="">Favorite</NavBar>
+        <NavBar href="/favorites">Favorite</NavBar>
       </Footer>
     </Container>
   );
