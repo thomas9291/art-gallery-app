@@ -6,23 +6,22 @@ import Cart from "../component/Cart/Cart";
 import Image from "next/image";
 import React from "react";
 
-export default function HomePage({ data }) {
+export default function HomePage({ artPiecesInfo }) {
   const random = Math.floor(Math.random() * 10 + 0);
-
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
       <Cart>
-        <h2>Artist name: {data[random].artist}</h2>
-        <h3>Picture name: {data[random].name}</h3>
+        <h2>Artist name: {artPiecesInfo[random].artist}</h2>
+        <h3>Picture name: {artPiecesInfo[random].name}</h3>
         <Image
           className="image"
-          src={data[random].imageSource}
+          src={artPiecesInfo[random].imageSource}
           alt="pictur autor"
           width={550}
           height={350}
         />
-        <p>{data[random].year}</p>
+        <p>{artPiecesInfo[random].year}</p>
       </Cart>
       <Footer>
         <NavBar isSilver href="/">

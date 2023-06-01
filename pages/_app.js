@@ -10,10 +10,13 @@ export default function App({ Component, pageProps }) {
     "https://example-apis.vercel.app/api/art",
     fetcher
   );
+
   const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState(
     "art-pieces-info",
-    { defaultValue: data }
+    { defaultValue: [] }
   );
+  updateArtPiecesInfo(data);
+
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
   const favoriteHandler = (slug) => {
@@ -28,14 +31,21 @@ export default function App({ Component, pageProps }) {
       )
     );
   };
+  /* const commentHandler = (formData) => {
+    updateArtPiecesInfo(
+      artPiecesInfo.map((element) => {
+        element.isComment = formData;
+      })
+    );
+  }; */
 
   return (
     <>
       <GlobalStyle />
       <SWRConfig value={{ fetcher }}>
         <Component
+          /* onForm={commentHandler} */
           onToggle={favoriteHandler}
-          data={data}
           artPiecesInfo={artPiecesInfo}
           updateArtPiecesInfo={updateArtPiecesInfo}
           {...pageProps}
