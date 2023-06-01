@@ -6,8 +6,14 @@ import Cart from "../component/Cart/Cart";
 import Image from "next/image";
 import React from "react";
 
-export default function HomePage({ artPiecesInfo }) {
+export default function HomePage({
+  artPiecesInfo,
+  mutate,
+  data,
+  updateArtPiecesInfo,
+}) {
   const random = Math.floor(Math.random() * 10 + 0);
+  updateArtPiecesInfo(data);
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -23,6 +29,9 @@ export default function HomePage({ artPiecesInfo }) {
         />
         <p>{artPiecesInfo[random].year}</p>
       </Cart>
+      <button type="button" onClick={() => mutate()}>
+        Revalidate
+      </button>
       <Footer>
         <NavBar isSilver href="/">
           Spotligth

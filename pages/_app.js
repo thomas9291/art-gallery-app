@@ -1,35 +1,31 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
-import { useImmerLocalStorageState } from "../component/useImmerLocalStorageState/useImmerLocalStorageState";
+import useImmerLocalStorageState from "../component/useImmerLocalStorageState/useImmerLocalStorageState";
 import useSWR from "swr";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     "https://example-apis.vercel.app/api/art",
     fetcher
   );
-
   const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState(
     "art-pieces-info",
     { defaultValue: [] }
   );
-  updateArtPiecesInfo(data);
-
-  if (error) return <div>failed to load</div>;
+  if (error) return <div>{error.message}</div>;
   if (isLoading) return <div>loading...</div>;
+
   const favoriteHandler = (slug) => {
-    updateArtPiecesInfo(
-      artPiecesInfo.map((element) =>
-        element.slug === slug
-          ? {
-              ...element,
-              isFavorite: !element.isFavorite,
-            }
-          : element
-      )
-    );
+    updateArtPiecesInfo((draft) => {
+      const element = artPiecesInfo.find((element) => element.slug === slug);
+      if (element) {
+        element.isFavorite = !element.isFavorite;
+      } else {
+        draft.push({ slug, isFavorite: false });
+      }
+    });
   };
   /* const commentHandler = (formData) => {
     updateArtPiecesInfo(
@@ -42,9 +38,11 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <SWRConfig value={{ fetcher }}>
+      <SWRConfig value={{ fetcher /* , refreshInterval: 1000  */ }}>
         <Component
           /* onForm={commentHandler} */
+          data={data}
+          mutate={mutate}
           onToggle={favoriteHandler}
           artPiecesInfo={artPiecesInfo}
           updateArtPiecesInfo={updateArtPiecesInfo}

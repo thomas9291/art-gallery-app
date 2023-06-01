@@ -18,6 +18,7 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
 export default function artPiece({ onToggle, artPiecesInfo }) {
+  console.log(artPiecesInfo);
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>

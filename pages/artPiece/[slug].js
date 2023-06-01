@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 
 import Container from "../../component/Container/Container";
@@ -7,17 +7,23 @@ import Image from "next/image";
 import Footer from "../../component/Footer/Footer";
 import Cart from "../../component/Cart/Cart";
 
-export default function DetailPage({ artPiecesInfo, onToggle, onForm }) {
+export default function DetailPage({
+  artPiecesInfo,
+  onToggle,
+  updateArtPiecesInfo,
+  data,
+}) {
+  /*  updateArtPiecesInfo(data); */
   const router = useRouter();
   const { slug } = router.query;
   const artPieceIndex = artPiecesInfo.find((element) => element.slug === slug);
   const { artist, name, imageSource, year, isFavorite } = artPieceIndex;
-  const [searchTerm, setSeachTerm] = useState("");
+  /*  const [searchTerm, setSeachTerm] = useState(""); */
 
-  const handleSubmit = (event) => {
+  /* const handleSubmit = (event) => {
     event.preventDefault();
     onForm(searchTerm);
-  };
+  }; */
 
   return (
     <Container>
