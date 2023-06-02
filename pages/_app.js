@@ -37,16 +37,14 @@ export default function App({ Component, pageProps }) {
   const filteredFavorite = artPiecesInfo.filter(
     (element) => element.isFavorite === true
   );
-  const commentHandler = (formData) => {
-    updateArtPiecesInfo([...artPiecesInfo, formData]);
-  };
+  console.log("artPiecesInfo:", artPiecesInfo);
 
   return (
     <>
       <GlobalStyle />
       <SWRConfig value={{ fetcher, refreshInterval: 1000 }}>
         <Component
-          onForm={commentHandler}
+          /*  onForm={commentHandler} */
           filteredFavorite={filteredFavorite}
           isData={data}
           mutate={mutate}
