@@ -1,7 +1,8 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
-import useImmerLocalStorageState from "../component/useImmerLocalStorageState/useImmerLocalStorageState";
+/* import useImmerLocalStorageState from "../component/useImmerLocalStorageState/useImmerLocalStorageState"; */
 import useSWR from "swr";
+import useLocalStorageState from "use-local-storage-state";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -10,42 +11,44 @@ export default function App({ Component, pageProps }) {
     "https://example-apis.vercel.app/api/art",
     fetcher
   );
-  const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState(
+  const [artPiecesInfo, updateArtPiecesInfo] = useLocalStorageState(
     "art-pieces-info",
     { defaultValue: [] }
   );
   if (error) return <div>{error.message}</div>;
   if (isLoading) return <div>loading...</div>;
+  if (artPiecesInfo.length === 0) {
+    updateArtPiecesInfo(data);
+  }
 
   const favoriteHandler = (slug) => {
-    updateArtPiecesInfo((draft) => {
-      const element = artPiecesInfo.find((element) => element.slug === slug);
-      if (element) {
-        element.isFavorite = !element.isFavorite;
-      } else {
-        draft.push({ slug, isFavorite: false });
-      }
-    });
+    updateArtPiecesInfo(
+      artPiecesInfo.map((element) =>
+        element.slug === slug
+          ? {
+              ...element,
+              isFavorite: !element.isFavorite,
+            }
+          : element
+      )
+    );
   };
+
   const filteredFavorite = artPiecesInfo.filter(
     (element) => element.isFavorite === true
   );
-  /* const commentHandler = (formData) => {
-    updateArtPiecesInfo(
-      artPiecesInfo.map((element) => {
-        element.isComment = formData;
-      })
-    );
-  }; */
+  const commentHandler = (formData) => {
+    updateArtPiecesInfo([...artPiecesInfo, formData]);
+  };
 
   return (
     <>
       <GlobalStyle />
-      <SWRConfig value={{ fetcher /* , refreshInterval: 1000  */ }}>
+      <SWRConfig value={{ fetcher, refreshInterval: 1000 }}>
         <Component
-          /* onForm={commentHandler} */
+          onForm={commentHandler}
           filteredFavorite={filteredFavorite}
-          data={data}
+          isData={data}
           mutate={mutate}
           onToggle={favoriteHandler}
           artPiecesInfo={artPiecesInfo}
