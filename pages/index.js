@@ -6,14 +6,12 @@ import Cart from "../component/Cart/Cart";
 import Image from "next/image";
 import React from "react";
 
-export default function HomePage({
-  artPiecesInfo,
-  mutate,
-  data,
-  updateArtPiecesInfo,
-}) {
+export default function HomePage({ artPiecesInfo, mutate }) {
   const random = Math.floor(Math.random() * 10 + 0);
-  updateArtPiecesInfo(data);
+  if (artPiecesInfo.length === 0) {
+    return <h2>...loading</h2>;
+  }
+  console.log("artPiecesInfo:", artPiecesInfo);
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>

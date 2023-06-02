@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import Container from "../../component/Container/Container";
@@ -7,26 +7,26 @@ import Image from "next/image";
 import Footer from "../../component/Footer/Footer";
 import Cart from "../../component/Cart/Cart";
 
-export default function DetailPage({
-  artPiecesInfo,
-  onToggle,
-  data,
-  updateArtPiecesInfo,
-}) {
-  updateArtPiecesInfo(data);
-
-  /*  updateArtPiecesInfo(data); */
+export default function DetailPage({ onToggle, artPiecesInfo, onForm }) {
   const router = useRouter();
   const { slug } = router.query;
   const artPieceIndex = artPiecesInfo.find((element) => element.slug === slug);
   const { artist, name, imageSource, year, isFavorite } = artPieceIndex;
-  /*  const [searchTerm, setSeachTerm] = useState(""); */
-
-  /* const handleSubmit = (event) => {
+  const [searchTerm, setSeachTerm] = useState("");
+  console.log("slug:", slug);
+  const handleSubmit = (event) => {
     event.preventDefault();
+    const formData = new FormData(event.target);
+    const dataForm = Object.fromEntries(formData);
+    dataForm.isFavorite = false;
+    dataForm.isComment = searchTerm;
+    console.log("dataForm:", dataForm);
+    setSeachTerm([...searchTerm, dataForm]);
     onForm(searchTerm);
-  }; */
-  console.log(artPieceIndex);
+    event.target.reset();
+    event.target.elements.searchTerm.focus();
+  };
+
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
@@ -42,7 +42,11 @@ export default function DetailPage({
           height={350}
         />
         <p>{year}</p>
-        <button className="favoriteBtn" onClick={() => onToggle(slug)}>
+        <button
+          className="favoriteBtn"
+          type="button"
+          onClick={() => onToggle(slug)}
+        >
           {isFavorite ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +67,7 @@ export default function DetailPage({
             </svg>
           )}
         </button>
-        {/*  <p>{searchTerm}</p>
+        <p>{searchTerm}</p>
 
         <form onSubmit={handleSubmit}>
           <label htmlFor="searchTerm">Add comment:</label>
@@ -71,14 +75,15 @@ export default function DetailPage({
           <textarea
             name="searchTerm"
             id="searchTerm"
-            value={searchTerm}ss
+            value={searchTerm}
+            ss
             onChange={(event) => setSeachTerm(event.target.value)}
             cols="40"
             rows="5"
             placeholder="write here!"
           />
           <button type="submit">submit</button>
-        </form> */}
+        </form>
       </Cart>
       <Footer>
         <NavBar href="/">Spotligth</NavBar>

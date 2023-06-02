@@ -14,13 +14,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 
-export default function favorites({
-  data,
-  updateArtPiecesInfo,
-  filteredFavorite,
-}) {
-  updateArtPiecesInfo(data);
-
+export default function favorites({ filteredFavorite }) {
   return (
     <Container>
       <h1 style={{ color: "white" }}>ART GALLERY</h1>
