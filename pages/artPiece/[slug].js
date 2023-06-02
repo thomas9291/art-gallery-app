@@ -7,24 +7,35 @@ import Image from "next/image";
 import Footer from "../../component/Footer/Footer";
 import Cart from "../../component/Cart/Cart";
 
-export default function DetailPage({ onToggle, artPiecesInfo, onForm }) {
+export default function DetailPage({
+  onToggle,
+  artPiecesInfo,
+  onForm,
+  updateArtPiecesInfo,
+}) {
   const router = useRouter();
   const { slug } = router.query;
   const artPieceIndex = artPiecesInfo.find((element) => element.slug === slug);
-  const { artist, name, imageSource, year, isFavorite } = artPieceIndex;
-  const [searchTerm, setSeachTerm] = useState("");
+  const { artist, name, imageSource, year, isFavorite, isComment } =
+    artPieceIndex;
+  /* const [searchTerm, setSeachTerm] = useState(""); */
   console.log("slug:", slug);
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const dataForm = Object.fromEntries(formData);
-    dataForm.isFavorite = false;
-    dataForm.isComment = searchTerm;
-    console.log("dataForm:", dataForm);
-    setSeachTerm([...searchTerm, dataForm]);
-    onForm(searchTerm);
+    const comment = dataForm.comment;
+    /*  dataForm.isFavorite = false; */
+    /*  dataForm.isComment = searchTerm;
+    setSeachTerm({ ...searchTerm, dataForm }); */
+
+    updateArtPiecesInfo(
+      artPiecesInfo.map((element) =>
+        element.slug === slug ? { ...element, isComment: comment } : element
+      )
+    );
+
     event.target.reset();
-    event.target.elements.searchTerm.focus();
   };
 
   return (
@@ -67,17 +78,17 @@ export default function DetailPage({ onToggle, artPiecesInfo, onForm }) {
             </svg>
           )}
         </button>
-        <p>{searchTerm}</p>
+        <p>{isComment}</p>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="searchTerm">Add comment:</label>
+          <label htmlFor="comment">Add comment:</label>
           <br />
           <textarea
-            name="searchTerm"
-            id="searchTerm"
-            value={searchTerm}
+            name="comment"
+            id="comment"
+            /*  value={searchTerm} */
             ss
-            onChange={(event) => setSeachTerm(event.target.value)}
+            /* onChange={(event) => setSeachTerm(event.target.value)} */
             cols="40"
             rows="5"
             placeholder="write here!"
