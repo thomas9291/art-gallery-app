@@ -7,10 +7,18 @@ import Image from "next/image";
 import Footer from "../../component/Footer/Footer";
 import Cart from "../../component/Cart/Cart";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/effect-cube";
+import "swiper/css/pagination";
+
+import { EffectCube, Pagination } from "swiper";
+let commentArray = [];
 export default function DetailPage({
   onToggle,
   artPiecesInfo,
-  onForm,
+
   updateArtPiecesInfo,
 }) {
   const router = useRouter();
@@ -18,24 +26,29 @@ export default function DetailPage({
   const artPieceIndex = artPiecesInfo.find((element) => element.slug === slug);
   const { artist, name, imageSource, year, isFavorite, isComment } =
     artPieceIndex;
-  /* const [searchTerm, setSeachTerm] = useState(""); */
+
   console.log("slug:", slug);
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const dataForm = Object.fromEntries(formData);
-    const comment = dataForm.comment;
-    /*  dataForm.isFavorite = false; */
-    /*  dataForm.isComment = searchTerm;
-    setSeachTerm({ ...searchTerm, dataForm }); */
+    let comment = dataForm.comment;
+
+    const updateComment = (toUpdate) => {
+      commentArray.push(toUpdate);
+      return commentArray;
+    };
 
     updateArtPiecesInfo(
       artPiecesInfo.map((element) =>
-        element.slug === slug ? { ...element, isComment: comment } : element
+        element.slug === slug
+          ? { ...element, isComment: [updateComment(comment)] }
+          : element
       )
     );
 
     event.target.reset();
+    event.target.elements.comment.focus();
   };
 
   return (
@@ -78,17 +91,42 @@ export default function DetailPage({
             </svg>
           )}
         </button>
-        <p>{isComment}</p>
 
+        <>
+          <Swiper
+            effect={"cube"}
+            grabCursor={true}
+            cubeEffect={{
+              shadow: true,
+              slideShadows: true,
+              shadowOffset: 20,
+              shadowScale: 0.94,
+            }}
+            pagination={true}
+            modules={[EffectCube, Pagination]}
+            className="mySwiper"
+          >
+            {!isComment ? (
+              <li>write a comment</li>
+            ) : (
+              isComment[0].map((element, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="listContainer">
+                      <p className="list">{element}</p>
+                    </div>
+                  </SwiperSlide>
+                );
+              })
+            )}
+          </Swiper>
+        </>
         <form onSubmit={handleSubmit}>
           <label htmlFor="comment">Add comment:</label>
           <br />
           <textarea
             name="comment"
             id="comment"
-            /*  value={searchTerm} */
-            ss
-            /* onChange={(event) => setSeachTerm(event.target.value)} */
             cols="40"
             rows="5"
             placeholder="write here!"

@@ -95,4 +95,18 @@ body {
   margin: 0;
   border-radius: 1rem;
 }
+.listContainer{
+  background-color : black;
+  color:white
+  padding: 3rem;
+  margin:1rem;
+  border-radius:1rem;
+}
+.list{
+  padding:2rem;
+  color:white;
+  text-align:center;
+  font-size:x-large;
+}
+
 `;
