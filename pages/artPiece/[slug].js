@@ -109,7 +109,7 @@ export default function DetailPage({
             {!isComment ? (
               <li>write a comment</li>
             ) : (
-              isComment[0].map((element, index) => {
+              isComment[0]?.map((element, index) => {
                 return (
                   <SwiperSlide key={index}>
                     <div className="listContainer">
