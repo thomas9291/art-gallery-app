@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { uid } from "uid";
 
 import Container from "../../component/Container/Container";
 import NavBar from "../../component/NavBar/NavBar";
 import Image from "next/image";
 import Footer from "../../component/Footer/Footer";
 import Cart from "../../component/Cart/Cart";
+import useLocalStorageState from "use-local-storage-state";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,42 +16,39 @@ import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 
 import { EffectCube, Pagination } from "swiper";
-let commentArray = [];
+
 export default function DetailPage({
   onToggle,
   artPiecesInfo,
-
-  updateArtPiecesInfo,
+  setArtPiecesInfo,
 }) {
   const router = useRouter();
   const { slug } = router.query;
+  const [isComment, setIsComment] = useLocalStorageState(slug, {
+    defaultValue: [],
+  });
   const artPieceIndex = artPiecesInfo.find((element) => element.slug === slug);
-  const { artist, name, imageSource, year, isFavorite, isComment } =
-    artPieceIndex;
-
+  const { artist, name, imageSource, year, isFavorite } = artPieceIndex;
+  console.log("artpieceIndex", artPieceIndex);
   console.log("slug:", slug);
-  const handleSubmit = (event) => {
+  const id = uid();
+
+  function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const dataForm = Object.fromEntries(formData);
-    let comment = dataForm.comment;
-
-    const updateComment = (toUpdate) => {
-      commentArray.push(toUpdate);
-      return commentArray;
-    };
-
-    updateArtPiecesInfo(
-      artPiecesInfo.map((element) =>
-        element.slug === slug
-          ? { ...element, isComment: [updateComment(comment)] }
-          : element
-      )
-    );
+    const data = Object.fromEntries(formData);
+    console.log("data", data);
+    setIsComment([
+      ...isComment,
+      {
+        id: id,
+        comment: data.comment,
+      },
+    ]);
 
     event.target.reset();
     event.target.elements.comment.focus();
-  };
+  }
 
   return (
     <Container>
@@ -109,11 +108,11 @@ export default function DetailPage({
             {!isComment ? (
               <li>write a comment</li>
             ) : (
-              isComment[0]?.map((element, index) => {
+              isComment.map((element) => {
                 return (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={element.id}>
                     <div className="listContainer">
-                      <p className="list">{element}</p>
+                      <p className="list">{element.comment}</p>
                     </div>
                   </SwiperSlide>
                 );

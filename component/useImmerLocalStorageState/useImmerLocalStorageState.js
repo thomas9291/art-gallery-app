@@ -1,4 +1,4 @@
-/* import produce, { freeze } from "immer";
+import { freeze, produce } from "immer";
 import { useCallback } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -21,4 +21,4 @@ export default function useImmerLocalStorageState(key, options) {
       [setValue]
     ),
   ];
-} */
+}

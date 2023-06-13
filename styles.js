@@ -83,6 +83,7 @@ body {
 }
 .image {
   object-fit: contain;
+ 
 }
 .linkContainer {
   margin: 1rem;
